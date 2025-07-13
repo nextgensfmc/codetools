@@ -1,10 +1,17 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SQL Queries | NextGenSFMC</title>
+  <title>SQL Reference | NextGenSFMC</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    pre { background: #f3f4f6; padding: 1em; border-radius: 0.5rem; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
+    th { background-color: #f9fafb; }
+  </style>
 </head>
 <body class="bg-white text-gray-800 font-sans">
   <header class="bg-gradient-to-r from-blue-600 to-cyan-500 py-6">
@@ -12,39 +19,77 @@
       <a href="../index.html">
         <img src="../assets/logo.jpeg" alt="NextGenSFMC Logo" class="h-10 mr-4 rounded" />
       </a>
-      <h1 class="text-white text-2xl font-bold">🗂️ SQL Queries Reference</h1>
+      <h1 class="text-white text-2xl font-bold">✅ SQL Reference</h1>
     </div>
   </header>
 
   <main class="container mx-auto px-4 py-8">
-    <section class="mb-8">
-      <p class="text-gray-700">Common SQL patterns and Data View examples in SFMC.</p>
-    </section>
-<section class="mt-8">
-      <h2 class="text-lg font-semibold mb-2">Select Queries</h2>
-      <ul class="list-disc list-inside text-gray-700">
-<li><code>SELECT * FROM [DataExtension]</code></li>
-<li><code>SELECT TOP 10 * FROM _Subscribers</code></li>
-</ul></section>
-<section class="mt-8">
-      <h2 class="text-lg font-semibold mb-2">Joins</h2>
-      <ul class="list-disc list-inside text-gray-700">
-<li><code>INNER JOIN</code></li>
-<li><code>LEFT JOIN examples</code></li>
-</ul></section>
-<section class="mt-8">
-      <h2 class="text-lg font-semibold mb-2">Data Views</h2>
-      <ul class="list-disc list-inside text-gray-700">
-<li><code>_Subscribers</code></li>
-<li><code>_Open</code></li>
-<li><code>_Click</code></li>
-<li><code>_Job</code></li>
-<li><code>_Sent</code></li>
-</ul></section>
+    <p class="mb-6">SQL examples for querying Data Extensions and tracking data using SFMC Query Activities. Includes debug and optimization tips.</p>
 
+    <input type="text" placeholder="Search SQL examples..." onkeyup="filterTable(this.value)" class="mb-6 p-2 border rounded w-full"/>
+
+    <table id="sqlTable">
+      <thead>
+        <tr>
+          <th>Pattern</th>
+          <th>Description</th>
+          <th>Example</th>
+          <th>Debug Tip</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>SELECT</code></td>
+          <td>Select fields from a Data Extension</td>
+          <td><pre>SELECT EmailAddress, FirstName FROM [Subscribers]</pre></td>
+          <td>Always use brackets [ ] around DE names</td>
+        </tr>
+        <tr>
+          <td><code>JOIN</code></td>
+          <td>Combine data from multiple DEs</td>
+          <td><pre>SELECT a.Email, b.Status
+FROM [MasterDE] a
+JOIN [StatusDE] b ON a.ID = b.ID</pre></td>
+          <td>Watch for NULLs on joined fields</td>
+        </tr>
+        <tr>
+          <td><code>WHERE</code></td>
+          <td>Filter data based on criteria</td>
+          <td><pre>SELECT * FROM [Leads] WHERE Source = 'Web'</pre></td>
+          <td>Use single quotes for strings</td>
+        </tr>
+        <tr>
+          <td><code>GROUP BY</code></td>
+          <td>Aggregate data with COUNT/SUM</td>
+          <td><pre>SELECT Campaign, COUNT(*) as Total
+FROM [Sends]
+GROUP BY Campaign</pre></td>
+          <td>Every non-aggregated field must be in GROUP BY</td>
+        </tr>
+        <tr>
+          <td><code>Data Views</code></td>
+          <td>Use SFMC tracking tables like _Open</td>
+          <td><pre>SELECT SubscriberKey, EventDate
+FROM _Open
+WHERE EventDate >= DateAdd(DAY, -7, GetDate())</pre></td>
+          <td>Data Views retain data for 6 months only</td>
+        </tr>
+      </tbody>
+    </table>
   </main>
+
   <footer class="bg-gray-100 text-center text-sm py-4 mt-10 text-gray-500">
-    © 2025 NextGenSFMC — Built for SFMC professionals.
+    © 2025 NextGenSFMC — SQL for SFMC made simple.
   </footer>
+
+  <script>
+    function filterTable(value) {
+      const rows = document.querySelectorAll('#sqlTable tbody tr');
+      rows.forEach(row => {
+        const match = row.innerText.toLowerCase().includes(value.toLowerCase());
+        row.style.display = match ? '' : 'none';
+      });
+    }
+  </script>
 </body>
 </html>

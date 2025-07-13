@@ -1,10 +1,17 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>API | NextGenSFMC</title>
+  <title>✅ API Reference | NextGenSFMC</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    pre { background: #f3f4f6; padding: 1em; border-radius: 0.5rem; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
+    th { background-color: #f9fafb; }
+  </style>
 </head>
 <body class="bg-white text-gray-800 font-sans">
   <header class="bg-gradient-to-r from-blue-600 to-cyan-500 py-6">
@@ -12,37 +19,56 @@
       <a href="../index.html">
         <img src="../assets/logo.jpeg" alt="NextGenSFMC Logo" class="h-10 mr-4 rounded" />
       </a>
-      <h1 class="text-white text-2xl font-bold">🔌 API Reference</h1>
+      <h1 class="text-white text-2xl font-bold">✅ API Reference</h1>
     </div>
   </header>
 
   <main class="container mx-auto px-4 py-8">
-    <section class="mb-8">
-      <p class="text-gray-700">SOAP and REST API examples and endpoints in SFMC.</p>
-    </section>
-<section class="mt-8">
-      <h2 class="text-lg font-semibold mb-2">REST API</h2>
-      <ul class="list-disc list-inside text-gray-700">
-<li><code>/messaging/v1/messageDefinitionSends</code></li>
-<li><code>/contacts/v1/attributes</code></li>
-</ul></section>
-<section class="mt-8">
-      <h2 class="text-lg font-semibold mb-2">SOAP API</h2>
-      <ul class="list-disc list-inside text-gray-700">
-<li><code>RetrieveRequest</code></li>
-<li><code>CreateRequest</code></li>
-<li><code>UpdateRequest</code></li>
-</ul></section>
-<section class="mt-8">
-      <h2 class="text-lg font-semibold mb-2">Auth</h2>
-      <ul class="list-disc list-inside text-gray-700">
-<li><code>Client ID/Secret</code></li>
-<li><code>Access Token flow</code></li>
-</ul></section>
+    <p class="mb-6">REST and SOAP API usage with examples and auth tips.</p>
 
+    <input type="text" placeholder="Search..." onkeyup="filterTable(this.value)" class="mb-6 p-2 border rounded w-full"/>
+
+    <table id="refTable">
+      <thead>
+        <tr>
+          <th>Topic</th>
+          <th>Description</th>
+          <th>Example</th>
+          <th>Debug Tip</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>REST Auth</code></td><td>Get OAuth token</td><td><pre>POST https://YOUR_SUBDOMAIN.auth.marketingcloudapis.com/v2/token
+{
+  "grant_type": "client_credentials",
+  "client_id": "xxx",
+  "client_secret": "xxx"
+}</pre></td><td>Tokens expire in 20 minutes</td></tr>
+<tr><td><code>REST DE Row</code></td><td>Create/update a row</td><td><pre>PUT /data/v1/customobjectdata/key/DE_NAME/rowkey/ROW_KEY</pre></td><td>Must include Authorization header</td></tr>
+<tr><td><code>SOAP Auth</code></td><td>Login request</td><td><pre>POST https://webservice.exacttarget.com/Service.asmx</pre></td><td>SOAP envelope must be wrapped correctly</td></tr>
+<tr><td><code>SOAP Send</code></td><td>Trigger email send</td><td><pre><Envelope>
+  <Create>
+    <Objects xsi:type="EmailSendDefinition">
+    ...</Objects>
+  </Create>
+</Envelope></pre></td><td>Check namespaces in payload</td></tr>
+<tr><td><code>API Tooling</code></td><td>Postman or SSJS REST call</td><td><pre>HTTP.Post(...)</pre></td><td>Confirm headers and body type (JSON)</td></tr>
+      </tbody>
+    </table>
   </main>
+
   <footer class="bg-gray-100 text-center text-sm py-4 mt-10 text-gray-500">
-    © 2025 NextGenSFMC — Built for SFMC professionals.
+    © 2025 NextGenSFMC — smart marketing automation.
   </footer>
+
+  <script>
+    function filterTable(value) {
+      const rows = document.querySelectorAll('#refTable tbody tr');
+      rows.forEach(row => {
+        const match = row.innerText.toLowerCase().includes(value.toLowerCase());
+        row.style.display = match ? '' : 'none';
+      });
+    }
+  </script>
 </body>
 </html>

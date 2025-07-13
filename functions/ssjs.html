@@ -1,10 +1,17 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SSJS | NextGenSFMC</title>
+  <title>✅ SSJS Reference | NextGenSFMC</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    pre { background: #f3f4f6; padding: 1em; border-radius: 0.5rem; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
+    th { background-color: #f9fafb; }
+  </style>
 </head>
 <body class="bg-white text-gray-800 font-sans">
   <header class="bg-gradient-to-r from-blue-600 to-cyan-500 py-6">
@@ -12,37 +19,47 @@
       <a href="../index.html">
         <img src="../assets/logo.jpeg" alt="NextGenSFMC Logo" class="h-10 mr-4 rounded" />
       </a>
-      <h1 class="text-white text-2xl font-bold">📜 SSJS Reference</h1>
+      <h1 class="text-white text-2xl font-bold">✅ SSJS Reference</h1>
     </div>
   </header>
 
   <main class="container mx-auto px-4 py-8">
-    <section class="mb-8">
-      <p class="text-gray-700">Useful Server-Side JavaScript snippets for SFMC scripting.</p>
-    </section>
-<section class="mt-8">
-      <h2 class="text-lg font-semibold mb-2">Core Functions</h2>
-      <ul class="list-disc list-inside text-gray-700">
-<li><code>Variable declaration</code></li>
-<li><code>Try/Catch blocks</code></li>
-</ul></section>
-<section class="mt-8">
-      <h2 class="text-lg font-semibold mb-2">Data Operations</h2>
-      <ul class="list-disc list-inside text-gray-700">
-<li><code>Platform.Function.Lookup</code></li>
-<li><code>Platform.Function.UpdateDE</code></li>
-</ul></section>
-<section class="mt-8">
-      <h2 class="text-lg font-semibold mb-2">Utilities</h2>
-      <ul class="list-disc list-inside text-gray-700">
-<li><code>Write</code></li>
-<li><code>Redirect</code></li>
-<li><code>Request</code></li>
-</ul></section>
+    <p class="mb-6">Server-Side JavaScript examples using Core and Platform libraries. Ideal for CloudPages, automations, and dynamic personalization.</p>
 
+    <input type="text" placeholder="Search..." onkeyup="filterTable(this.value)" class="mb-6 p-2 border rounded w-full"/>
+
+    <table id="refTable">
+      <thead>
+        <tr>
+          <th>Topic</th>
+          <th>Description</th>
+          <th>Example</th>
+          <th>Debug Tip</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>Write</code></td><td>Output text to CloudPage</td><td><pre>Write("Hello World");</pre></td><td>Ensure quotes are escaped correctly</td></tr>
+<tr><td><code>Variable</code></td><td>Declare variable</td><td><pre>var name = "John";</pre></td><td>Always end statements with semicolon</td></tr>
+<tr><td><code>Lookup</code></td><td>Retrieve value from DE</td><td><pre>Platform.Load("Core", "1.1.1");
+var fname = Lookup("Members", "FirstName", "Email", email);</pre></td><td>Check field/case sensitivity</td></tr>
+<tr><td><code>InsertDE</code></td><td>Insert row into DE</td><td><pre>InsertDE("LogDE", ["Email", "Status"], [email, status]);</pre></td><td>Field list must match values</td></tr>
+<tr><td><code>ParseJSON</code></td><td>Parse JSON string</td><td><pre>var obj = Platform.Function.ParseJSON(@json);</pre></td><td>Make sure JSON is valid before parsing</td></tr>
+      </tbody>
+    </table>
   </main>
+
   <footer class="bg-gray-100 text-center text-sm py-4 mt-10 text-gray-500">
-    © 2025 NextGenSFMC — Built for SFMC professionals.
+    © 2025 NextGenSFMC — smart marketing automation.
   </footer>
+
+  <script>
+    function filterTable(value) {
+      const rows = document.querySelectorAll('#refTable tbody tr');
+      rows.forEach(row => {
+        const match = row.innerText.toLowerCase().includes(value.toLowerCase());
+        row.style.display = match ? '' : 'none';
+      });
+    }
+  </script>
 </body>
 </html>

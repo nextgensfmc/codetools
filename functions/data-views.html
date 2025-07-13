@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>✅ JSON Reference | NextGenSFMC</title>
+  <title>✅ Data Views Reference | NextGenSFMC</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     pre { background: #f3f4f6; padding: 1em; border-radius: 0.5rem; overflow-x: auto; }
@@ -19,12 +19,12 @@
       <a href="../index.html">
         <img src="../assets/logo.jpeg" alt="NextGenSFMC Logo" class="h-10 mr-4 rounded" />
       </a>
-      <h1 class="text-white text-2xl font-bold">✅ JSON Reference</h1>
+      <h1 class="text-white text-2xl font-bold">✅ Data Views Reference</h1>
     </div>
   </header>
 
   <main class="container mx-auto px-4 py-8">
-    <p class="mb-6">Examples for working with JSON inside AMPscript and SSJS.</p>
+    <p class="mb-6">Built-in tracking data views in SFMC. Use these in SQL Query Activities.</p>
 
     <input type="text" placeholder="Search..." onkeyup="filterTable(this.value)" class="mb-6 p-2 border rounded w-full"/>
 
@@ -38,12 +38,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td><code>TreatAsContent</code></td><td>Parse string in AMPscript</td><td><pre>%%[ SET @json = '{"key":"value"}'
-SET @parsed = TreatAsContent(@json) ]%%</pre></td><td>Escape all double quotes properly</td></tr>
-<tr><td><code>ParseJSON</code></td><td>SSJS JSON to object</td><td><pre>var obj = Platform.Function.ParseJSON(@json);</pre></td><td>Malformed JSON will return null</td></tr>
-<tr><td><code>Access keys</code></td><td>Get values from object</td><td><pre>obj.key</pre></td><td>Confirm key names are case-sensitive</td></tr>
-<tr><td><code>Nested access</code></td><td>Handle nested structures</td><td><pre>obj.items[0].title</pre></td><td>Use bracket notation if key has space</td></tr>
-<tr><td><code>Array loop</code></td><td>Loop through JSON</td><td><pre>for(var i in arr) { Write(arr[i]); }</pre></td><td>Use typeof to verify array</td></tr>
+        <tr><td><code>_Subscribers</code></td><td>All subscribers</td><td><pre>SELECT * FROM _Subscribers</pre></td><td>Use SubscriberKey not EmailAddress</td></tr>
+<tr><td><code>_Open</code></td><td>Email opens</td><td><pre>SELECT * FROM _Open WHERE EventDate >= GetDate()</pre></td><td>Only 6 months of data retained</td></tr>
+<tr><td><code>_Click</code></td><td>Link click tracking</td><td><pre>SELECT * FROM _Click WHERE URL LIKE '%unsubscribe%'</pre></td><td>Combine with _Job for context</td></tr>
+<tr><td><code>_Sent</code></td><td>Sent tracking</td><td><pre>SELECT * FROM _Sent WHERE JobID = 12345</pre></td><td>JobID links to _Job table</td></tr>
+<tr><td><code>_Unsubscribe</code></td><td>Unsub events</td><td><pre>SELECT * FROM _Unsubscribe</pre></td><td>Join with _Subscribers for details</td></tr>
       </tbody>
     </table>
   </main>

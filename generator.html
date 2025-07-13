@@ -115,7 +115,42 @@ WHERE \${conditions}\`;
     code = \`<script runat="server">
   Platform.Load("Core", "1");
   var rows = Platform.Function.Lookup("\${deName}", "*", "\${lookupField}", "\${lookupValue}");
-</script>\`;
+
+// Example references by language
+const referenceSnippets = {
+  ampscript: `%%[
+  SET @firstName = AttributeValue("FirstName")
+  SET @email = AttributeValue("EmailAddress")
+  SET @memberID = Lookup("Members", "MemberID", "EmailAddress", @email)
+  IF NOT EMPTY(@memberID) THEN
+    SET @status = "Member Found"
+  ELSE
+    SET @status = "Not Found"
+  ENDIF
+]%%`,
+
+  sql: `SELECT FirstName, LastName, EmailAddress
+FROM [Subscribers]
+WHERE Status = 'Active'
+AND EmailAddress LIKE '%@example.com'`,
+
+  ssjs: `<script runat="server">
+  Platform.Load("Core", "1.1.1");
+  var email = Request.GetQueryStringParameter("email");
+  var rows = Platform.Function.Lookup("Subscribers", "FirstName", "EmailAddress", email);
+  if (rows && rows.length > 0) {
+    Write("Hello " + rows[0]["FirstName"]);
+  }
+</script>`
+};
+
+const output = document.getElementById('output');
+const langSelect = document.getElementById('language');
+langSelect.addEventListener('change', () => {
+  renderForm(langSelect.value);
+  output.innerText = referenceSnippets[langSelect.value] || '';
+});
+\`;
   }
 
   document.getElementById('output').innerText = code;
@@ -123,7 +158,42 @@ WHERE \${conditions}\`;
 
 document.getElementById('language').addEventListener('change', e => renderForm(e.target.value));
 window.onload = () => renderForm('ampscript');
-</script>
+
+// Example references by language
+const referenceSnippets = {
+  ampscript: `%%[
+  SET @firstName = AttributeValue("FirstName")
+  SET @email = AttributeValue("EmailAddress")
+  SET @memberID = Lookup("Members", "MemberID", "EmailAddress", @email)
+  IF NOT EMPTY(@memberID) THEN
+    SET @status = "Member Found"
+  ELSE
+    SET @status = "Not Found"
+  ENDIF
+]%%`,
+
+  sql: `SELECT FirstName, LastName, EmailAddress
+FROM [Subscribers]
+WHERE Status = 'Active'
+AND EmailAddress LIKE '%@example.com'`,
+
+  ssjs: `<script runat="server">
+  Platform.Load("Core", "1.1.1");
+  var email = Request.GetQueryStringParameter("email");
+  var rows = Platform.Function.Lookup("Subscribers", "FirstName", "EmailAddress", email);
+  if (rows && rows.length > 0) {
+    Write("Hello " + rows[0]["FirstName"]);
+  }
+</script>`
+};
+
+const output = document.getElementById('output');
+const langSelect = document.getElementById('language');
+langSelect.addEventListener('change', () => {
+  renderForm(langSelect.value);
+  output.innerText = referenceSnippets[langSelect.value] || '';
+});
+
 
 </body>
 </html>

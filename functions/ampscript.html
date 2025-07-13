@@ -4,8 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AMPscript | NextGenSFMC</title>
+  <title>AMPscript Reference | NextGenSFMC</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    pre { background: #f3f4f6; padding: 1em; border-radius: 0.5rem; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
+    th { background-color: #f9fafb; }
+  </style>
 </head>
 <body class="bg-white text-gray-800 font-sans">
   <header class="bg-gradient-to-r from-blue-600 to-cyan-500 py-6">
@@ -13,104 +19,71 @@
       <a href="../index.html">
         <img src="../assets/logo.jpeg" alt="NextGenSFMC Logo" class="h-10 mr-4 rounded" />
       </a>
-      <h1 class="text-white text-2xl font-bold">AMPscript Reference</h1>
+      <h1 class="text-white text-2xl font-bold">✅ AMPscript Reference</h1>
     </div>
   </header>
 
   <main class="container mx-auto px-4 py-8">
-    <section class="mb-8">
-      <h2 class="text-xl font-semibold mb-2">📘 AMPscript Categories</h2>
-      <p class="text-gray-700">Categorized reference of common AMPscript functions used in Salesforce Marketing Cloud.</p>
-    </section>
+    <p class="mb-6">Use the following AMPscript functions and examples in emails, CloudPages, and messages in SFMC. Built-in syntax and debug tips included.</p>
 
-    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      <a href="#string" class="block bg-white border shadow p-4 rounded-lg hover:bg-blue-50">
-        <h3 class="font-bold text-blue-600">📝 String Functions</h3>
-        <p class="text-sm text-gray-600">Concatenation, length, case conversion, and more.</p>
-      </a>
-      <a href="#date" class="block bg-white border shadow p-4 rounded-lg hover:bg-blue-50">
-        <h3 class="font-bold text-blue-600">📆 Date Functions</h3>
-        <p class="text-sm text-gray-600">Date formatting, offset, and comparisons.</p>
-      </a>
-      <a href="#data" class="block bg-white border shadow p-4 rounded-lg hover:bg-blue-50">
-        <h3 class="font-bold text-blue-600">📂 Data Functions</h3>
-        <p class="text-sm text-gray-600">Lookup, retrieve, update, and insert data.</p>
-      </a>
-      <a href="#email" class="block bg-white border shadow p-4 rounded-lg hover:bg-blue-50">
-        <h3 class="font-bold text-blue-600">✉️ Email Functions</h3>
-        <p class="text-sm text-gray-600">Send email, personalization strings, subscriber context.</p>
-      </a>
-      <a href="#logic" class="block bg-white border shadow p-4 rounded-lg hover:bg-blue-50">
-        <h3 class="font-bold text-blue-600">🔁 Logical Functions</h3>
-        <p class="text-sm text-gray-600">Conditionals, comparisons, and branching.</p>
-      </a>
-      <a href="#other" class="block bg-white border shadow p-4 rounded-lg hover:bg-blue-50">
-        <h3 class="font-bold text-blue-600">🔧 Other Functions</h3>
-        <p class="text-sm text-gray-600">Base64, encryption, error handling, and more.</p>
-      </a>
-    </section>
+    <input type="text" placeholder="Search functions..." onkeyup="filterTable(this.value)" class="mb-6 p-2 border rounded w-full"/>
 
-    <section class="mt-12" id="string">
-      <h2 class="text-lg font-semibold mb-2">📝 String Functions</h2>
-      <ul class="list-disc list-inside text-gray-700">
-        <li><code>Concat()</code> – Concatenates multiple strings.</li>
-        <li><code>Length()</code> – Returns the length of a string.</li>
-        <li><code>Lowercase()</code> – Converts text to lowercase.</li>
-        <li><code>Uppercase()</code> – Converts text to uppercase.</li>
-        <li><code>ProperCase()</code> – Converts text to proper case.</li>
-      </ul>
-    </section>
-
-    <section class="mt-8" id="date">
-      <h2 class="text-lg font-semibold mb-2">📆 Date Functions</h2>
-      <ul class="list-disc list-inside text-gray-700">
-        <li><code>Now()</code> – Returns the current system date and time.</li>
-        <li><code>FormatDate()</code> – Formats a date using a given format string.</li>
-        <li><code>DateAdd()</code> – Adds an interval to a date.</li>
-        <li><code>DateDiff()</code> – Returns the difference between two dates.</li>
-      </ul>
-    </section>
-
-    <section class="mt-8" id="data">
-      <h2 class="text-lg font-semibold mb-2">📂 Data Functions</h2>
-      <ul class="list-disc list-inside text-gray-700">
-        <li><code>Lookup()</code> – Retrieves a value from a data extension.</li>
-        <li><code>LookupRows()</code> – Returns multiple rows from a data extension.</li>
-        <li><code>UpdateDE()</code> – Updates a row in a data extension.</li>
-        <li><code>InsertDE()</code> – Inserts a new row into a data extension.</li>
-      </ul>
-    </section>
-
-    <section class="mt-8" id="email">
-      <h2 class="text-lg font-semibold mb-2">✉️ Email Functions</h2>
-      <ul class="list-disc list-inside text-gray-700">
-        <li><code>AttributeValue()</code> – Returns the value of an attribute.</li>
-        <li><code>RequestParameter()</code> – Gets values from query strings or form posts.</li>
-        <li><code>RedirectTo()</code> – Redirects the browser to a new URL.</li>
-      </ul>
-    </section>
-
-    <section class="mt-8" id="logic">
-      <h2 class="text-lg font-semibold mb-2">🔁 Logical Functions</h2>
-      <ul class="list-disc list-inside text-gray-700">
-        <li><code>IF</code>, <code>ELSEIF</code>, <code>ELSE</code>, <code>ENDIF</code> – Conditional logic.</li>
-        <li><code>Empty()</code> – Checks if a value is empty.</li>
-        <li><code>IsEmailAddress()</code> – Validates email address format.</li>
-      </ul>
-    </section>
-
-    <section class="mt-8" id="other">
-      <h2 class="text-lg font-semibold mb-2">🔧 Other Functions</h2>
-      <ul class="list-disc list-inside text-gray-700">
-        <li><code>Base64Encode()</code>, <code>Base64Decode()</code></li>
-        <li><code>EncryptSymmetric()</code>, <code>DecryptSymmetric()</code></li>
-        <li><code>RaiseError()</code> – Throws a custom error in AMPscript.</li>
-      </ul>
-    </section>
+    <table id="ampTable">
+      <thead>
+        <tr>
+          <th>Function</th>
+          <th>Description</th>
+          <th>Example</th>
+          <th>Debug Tip</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>Lookup</code></td>
+          <td>Retrieve value from a Data Extension</td>
+          <td><pre>SET @fname = Lookup("Members", "FirstName", "Email", @email)</pre></td>
+          <td>Ensure DE and field names are correct, use double quotes</td>
+        </tr>
+        <tr>
+          <td><code>Concat</code></td>
+          <td>Combine multiple strings</td>
+          <td><pre>SET @name = Concat(@first, " ", @last)</pre></td>
+          <td>Use double quotes for strings, not single</td>
+        </tr>
+        <tr>
+          <td><code>FormatDate</code></td>
+          <td>Convert a date to readable format</td>
+          <td><pre>SET @fDate = FormatDate(@today, "MMMM dd, yyyy")</pre></td>
+          <td>Check if date value is valid before formatting</td>
+        </tr>
+        <tr>
+          <td><code>Now</code></td>
+          <td>Returns current system time</td>
+          <td><pre>SET @today = Now()</pre></td>
+          <td>Use FormatDate() to display output properly</td>
+        </tr>
+        <tr>
+          <td><code>RaiseError</code></td>
+          <td>Force AMPscript to throw an error</td>
+          <td><pre>RaiseError("Missing subscriber key", true)</pre></td>
+          <td>Useful for debugging inside IF statements</td>
+        </tr>
+      </tbody>
+    </table>
   </main>
 
   <footer class="bg-gray-100 text-center text-sm py-4 mt-10 text-gray-500">
-    © 2025 NextGenSFMC — Built for SFMC professionals.
+    © 2025 NextGenSFMC — AMPscript made simple.
   </footer>
+
+  <script>
+    function filterTable(value) {
+      const rows = document.querySelectorAll('#ampTable tbody tr');
+      rows.forEach(row => {
+        const match = row.innerText.toLowerCase().includes(value.toLowerCase());
+        row.style.display = match ? '' : 'none';
+      });
+    }
+  </script>
 </body>
 </html>
