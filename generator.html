@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Code Generator | NextGenSFMC</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    select, input, textarea { transition: all 0.2s ease-in-out; }
+  </style>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+  <header class="bg-gradient-to-r from-blue-600 to-cyan-500 py-6">
+    <div class="container mx-auto flex items-center px-4">
+      <a href="index.html">
+        <img src="assets/logo.jpeg" alt="NextGenSFMC Logo" class="h-10 mr-4 rounded" />
+      </a>
+      <h1 class="text-white text-2xl font-bold">🧠 Code Generator</h1>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-2xl mx-auto bg-white p-6 shadow rounded">
+      <label class="block mb-4">
+        <span class="text-gray-700 font-semibold">Select Language</span>
+        <select id="language" class="block w-full mt-1 border rounded p-2">
+          <option value="ampscript">AMPscript</option>
+          <option value="sql">SQL</option>
+          <option value="ssjs">SSJS</option>
+        </select>
+      </label>
+
+      <div id="formFields" class="space-y-4">
+        <!-- Fields will be injected dynamically -->
+      </div>
+
+      <button onclick="generateCode()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        Generate Code
+      </button>
+
+      <div class="mt-6">
+        <h2 class="text-lg font-semibold mb-2">Generated Code</h2>
+        <pre id="output" class="bg-gray-100 p-4 rounded overflow-x-auto text-sm"></pre>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-gray-100 text-center text-sm py-4 mt-10 text-gray-500">
+    © 2025 NextGenSFMC — Built for SFMC professionals.
+  </footer>
+
+<script>
+const fieldTemplates = {
+  ampscript: [
+    { id: 'varName', label: 'Variable Name', type: 'text' },
+    { id: 'deName', label: 'Data Extension Name', type: 'text' },
+    { id: 'field', label: 'Field to Lookup', type: 'text' },
+    { id: 'value', label: 'Value to Match', type: 'text' }
+  ],
+  sql: [
+    { id: 'table', label: 'Table Name (DE or Data View)', type: 'text' },
+    { id: 'fields', label: 'Fields (comma-separated)', type: 'text' },
+    { id: 'conditions', label: 'WHERE Conditions', type: 'text' }
+  ],
+  ssjs: [
+    { id: 'deName', label: 'Data Extension Name', type: 'text' },
+    { id: 'lookupField', label: 'Lookup Field', type: 'text' },
+    { id: 'lookupValue', label: 'Lookup Value', type: 'text' }
+  ]
+};
+
+function renderForm(lang) {
+  const container = document.getElementById('formFields');
+  container.innerHTML = '';
+  fieldTemplates[lang].forEach(f => {
+    const field = document.createElement('div');
+    field.innerHTML = \`
+      <label class="block">
+        <span class="text-gray-700">\${f.label}</span>
+        <input id="\${f.id}" type="\${f.type}" class="block w-full mt-1 border rounded p-2" />
+      </label>\`;
+    container.appendChild(field);
+  });
+}
+
+function generateCode() {
+  const lang = document.getElementById('language').value;
+  let code = '';
+
+  if (lang === 'ampscript') {
+    const varName = document.getElementById('varName').value;
+    const deName = document.getElementById('deName').value;
+    const field = document.getElementById('field').value;
+    const value = document.getElementById('value').value;
+
+    code = \`%%[
+  SET @\${varName} = Lookup("\${deName}", "\${field}", "SubscriberKey", "\${value}")
+]%%\`;
+
+  } else if (lang === 'sql') {
+    const table = document.getElementById('table').value;
+    const fields = document.getElementById('fields').value;
+    const conditions = document.getElementById('conditions').value;
+
+    code = \`SELECT \${fields}
+FROM \${table}
+WHERE \${conditions}\`;
+
+  } else if (lang === 'ssjs') {
+    const deName = document.getElementById('deName').value;
+    const lookupField = document.getElementById('lookupField').value;
+    const lookupValue = document.getElementById('lookupValue').value;
+
+    code = \`<script runat="server">
+  Platform.Load("Core", "1");
+  var rows = Platform.Function.Lookup("\${deName}", "*", "\${lookupField}", "\${lookupValue}");
+</script>\`;
+  }
+
+  document.getElementById('output').innerText = code;
+}
+
+document.getElementById('language').addEventListener('change', e => renderForm(e.target.value));
+window.onload = () => renderForm('ampscript');
+</script>
+
+</body>
+</html>

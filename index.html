@@ -4,49 +4,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NextGenSFMC Cheatsheet</title>
+  <title>NextGenSFMC Dev Cheatsheet</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-white text-gray-800 font-sans">
+<body class="bg-gray-50 text-gray-800 font-sans">
   <header class="bg-gradient-to-r from-blue-600 to-cyan-500 py-6">
     <div class="container mx-auto flex items-center px-4">
-      <img src="assets/logo.jpeg" alt="NextGenSFMC Logo" class="h-12 mr-4 rounded" />
-      <h1 class="text-white text-2xl font-bold">NextGenSFMC Developer Cheatsheet</h1>
+      <img src="assets/logo.jpeg" alt="NextGenSFMC Logo" class="h-10 mr-4 rounded" />
+      <h1 class="text-white text-3xl font-bold">NextGenSFMC Dev Cheatsheet</h1>
     </div>
   </header>
 
   <main class="container mx-auto px-4 py-10">
-    <section class="mb-10">
-      <h2 class="text-xl font-semibold mb-2">📘 Your Ultimate SFMC Dev Reference</h2>
-      <p class="text-gray-700">AMPscript, SQL, SSJS, API, JSON & Data Views — all in one place.</p>
-    </section>
-
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <a href="ampscript.html" class="bg-white shadow p-6 rounded-xl hover:bg-blue-50 border">
-        <h3 class="text-lg font-bold text-blue-700">🧩 AMPscript</h3>
-        <p class="text-sm text-gray-600">Functions, personalization, examples.</p>
+    <p class="mb-8 text-gray-700">Explore commonly used references and tools for Salesforce Marketing Cloud development.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <a href="functions/ampscript.html" class="block bg-white shadow hover:shadow-md transition rounded-xl p-5">
+        <h2 class="text-xl font-semibold mb-2">✅ AMPscript</h2>
+        <p>String, date, data, and logic functions with syntax examples.</p>
       </a>
-      <a href="sql.html" class="bg-white shadow p-6 rounded-xl hover:bg-blue-50 border">
-        <h3 class="text-lg font-bold text-blue-700">🗂️ SQL Queries</h3>
-        <p class="text-sm text-gray-600">Query Data Extensions & Data Views.</p>
+      <a href="functions/sql.html" class="block bg-white shadow hover:shadow-md transition rounded-xl p-5">
+        <h2 class="text-xl font-semibold mb-2">✅ SQL</h2>
+        <p>SQL query examples for DEs and tracking Data Views.</p>
       </a>
-      <a href="ssjs.html" class="bg-white shadow p-6 rounded-xl hover:bg-blue-50 border">
-        <h3 class="text-lg font-bold text-blue-700">📜 SSJS</h3>
-        <p class="text-sm text-gray-600">Server-side JavaScript in SFMC.</p>
+      <a href="functions/ssjs.html" class="block bg-white shadow hover:shadow-md transition rounded-xl p-5">
+        <h2 class="text-xl font-semibold mb-2">✅ SSJS</h2>
+        <p>Server-side JavaScript functions for personalization and automation.</p>
       </a>
-      <a href="api.html" class="bg-white shadow p-6 rounded-xl hover:bg-blue-50 border">
-        <h3 class="text-lg font-bold text-blue-700">🔌 API (REST & SOAP)</h3>
-        <p class="text-sm text-gray-600">Authentication & data interactions.</p>
+      <a href="functions/api.html" class="block bg-white shadow hover:shadow-md transition rounded-xl p-5">
+        <h2 class="text-xl font-semibold mb-2">✅ API</h2>
+        <p>REST and SOAP API usage for integration and automation.</p>
       </a>
-      <a href="json.html" class="bg-white shadow p-6 rounded-xl hover:bg-blue-50 border">
-        <h3 class="text-lg font-bold text-blue-700">📦 JSON in SFMC</h3>
-        <p class="text-sm text-gray-600">Parse and personalize with JSON data.</p>
+      <a href="functions/json.html" class="block bg-white shadow hover:shadow-md transition rounded-xl p-5">
+        <h2 class="text-xl font-semibold mb-2">✅ JSON</h2>
+        <p>Working with JSON data in AMPscript, SSJS, and API payloads.</p>
       </a>
-      <a href="dataviews.html" class="bg-white shadow p-6 rounded-xl hover:bg-blue-50 border">
-        <h3 class="text-lg font-bold text-blue-700">📊 Data Views</h3>
-        <p class="text-sm text-gray-600">Internal tracking tables in SFMC.</p>
+      <a href="functions/dataviews.html" class="block bg-white shadow hover:shadow-md transition rounded-xl p-5">
+        <h2 class="text-xl font-semibold mb-2">✅ Data Views</h2>
+        <p>Reference to tracking views like _Open, _Click, _Subscribers.</p>
       </a>
-    </section>
+      <a href="generator.html" class="block bg-white shadow hover:shadow-md transition rounded-xl p-5 col-span-1 sm:col-span-2">
+        <h2 class="text-xl font-semibold mb-2">🧠 Code Generator</h2>
+        <p>Generate AMPscript, SQL, or SSJS code snippets instantly.</p>
+      </a>
+    </div>
   </main>
 
   <footer class="bg-gray-100 text-center text-sm py-4 mt-10 text-gray-500">
